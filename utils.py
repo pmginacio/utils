@@ -2,6 +2,7 @@
 '''A selection of general purpose functions.'''
 
 import subprocess
+import numpy as np
 
 __author__ = "Pedro Inácio"
 __copyright__ = "Copyright 2015"
@@ -95,3 +96,24 @@ def confirm(prompt=None, resp=False):
             return True
         if ans == 'n' or ans == 'N':
             return False
+
+def num_equal_rel(a,b,rthrs=1E-14):
+    """
+    check that two floating-point numbers are equal up to a relative threshold value
+    """
+
+    return np.abs( a - b ) <= (np.abs(a) + np.abs(b))*rthrs/2.0;
+
+def num_equal_abs(a,b,athrs=1E-14):
+    """
+    check that two floating-point numbers are equal up to an absolute threshold value
+    """
+
+    return np.abs( a - b ) <= athrs;
+
+def num_equal(a,b,athrs=1E-14,rthrs=1E-14):
+    """
+    check that floating point numbers a and b are equal up some threshold
+    """
+
+    return num_equal_abs(a,b,athrs) or num_equal_rel(a,b,rthrs)
