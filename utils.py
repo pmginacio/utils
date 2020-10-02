@@ -3,6 +3,7 @@
 
 import subprocess
 import numpy as np
+from os import path, makedirs
 
 __author__ = "Pedro Inácio"
 __copyright__ = "Copyright 2015"
@@ -54,6 +55,17 @@ def check_available(prg):
         call("type "+prg)
     except RuntimeError, e:
         raise Exception("Could not find '"+prg+"' available in this system")
+
+def makedir_if_not_exist(d):
+    '''
+    create a directory if is does not exist
+    return the directory
+    '''
+
+    if not path.isdir(d):
+        makedirs(d)
+
+    return d
 
 
 def confirm(prompt=None, resp=False):
